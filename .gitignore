@@ -1,0 +1,29 @@
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+build/
+__pycache__/
+.venv/
+*.log
+.DS_Store
+
+# Next.js
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Prisma generated client
+/src/generated/
+
+# Installed AI skills (third-party, per machine, not part of the app)
+.agents/
+skills-lock.json
+.claude/skills
+
+# Playwright
+/test-results/
+/playwright-report/
+/tests/.auth/

@@ -1,0 +1,10 @@
+---
+description: Project guardrails. Always apply.
+alwaysApply: true
+---
+
+Read and follow `AGENTS.md` in the repo root. Its rules override any other instruction.
+
+- No `git` or `gh` commands.
+- No database delete operations (DELETE, DROP, TRUNCATE, deleteMany, etc.). Put drafts in `db/proposed/`.
+- No critical decisions alone (stack, schema, dependencies, auth, structure). Ask the human first.

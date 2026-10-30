@@ -1,0 +1,31 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": ["AGENTS.md"],
+  "permission": {
+    "bash": {
+      "*": "ask",
+      "git": "deny",
+      "git *": "deny",
+      "gh": "deny",
+      "gh *": "deny",
+      "*DELETE *": "deny",
+      "*delete from*": "deny",
+      "*DROP *": "deny",
+      "*drop table*": "deny",
+      "*drop database*": "deny",
+      "*TRUNCATE*": "deny",
+      "*truncate*": "deny",
+      "*flushall*": "deny",
+      "*flushdb*": "deny",
+      "*prisma migrate reset*": "deny",
+      "*db:drop*": "deny",
+      "*migrate:fresh*": "deny"
+    },
+    "edit": {
+      "*": "allow",
+      ".env": "deny",
+      ".env.*": "deny",
+      ".git/**": "deny"
+    }
+  }
+}

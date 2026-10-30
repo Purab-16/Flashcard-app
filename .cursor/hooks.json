@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [{ "command": "node scripts/guard/guard.mjs cursor" }],
+    "beforeMCPExecution": [{ "command": "node scripts/guard/guard.mjs cursor" }]
+  }
+}
