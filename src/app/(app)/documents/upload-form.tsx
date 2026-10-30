@@ -8,6 +8,15 @@ import { Input } from "@/components/ui/input";
 import { NativeSelect } from "@/components/ui/native-select";
 import { createClient } from "@/lib/supabase/client";
 
+// A crashed server sends an empty body. Show a plain message instead of "JSON.parse" text.
+async function readJson(res: Response): Promise<{ id?: string; error?: string }> {
+  try {
+    return await res.json();
+  } catch {
+    return { error: `The server had a problem (code ${res.status}). Please try again in a moment.` };
+  }
+}
+
 const MAX_BYTES = 15 * 1024 * 1024;
 const ACCEPT = ".pdf,.docx,.txt,.png,.jpg,.jpeg,.webp";
 const MIME_BY_EXT: Record<string, string> = {
@@ -67,12 +76,12 @@ export function UploadForm({ subjects }: { subjects: { id: string; name: string 
           subjectId,
         }),
       });
-      const createdBody = await created.json();
+      const createdBody = await readJson(created);
       if (!created.ok) throw new Error(createdBody.error ?? "Could not save the document");
 
       setStep("Reading and splitting the text...");
       const processed = await fetch(`/api/documents/${createdBody.id}/process`, { method: "POST" });
-      const processedBody = await processed.json();
+      const processedBody = await readJson(processed);
       if (!processed.ok) throw new Error(processedBody.error ?? "Could not read the document");
 
       form.reset();

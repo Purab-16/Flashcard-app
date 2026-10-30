@@ -1,4 +1,4 @@
-import { PDFParse } from "pdf-parse";
+// pdf-parse is loaded inside renderPdfPages so that importing this file never loads canvas.
 
 // Scanned PDFs have pictures of pages, not text. Each page becomes an image that the vision model reads.
 // One page is one AI call, so the number of pages is capped.
@@ -15,6 +15,7 @@ export type PageImage = { pageNumber: number; image: Uint8Array };
 
 /** Render the first pages of a PDF to PNG images. */
 export async function renderPdfPages(data: Uint8Array, maxPages = MAX_OCR_PAGES): Promise<PageImage[]> {
+  const { PDFParse } = await import("pdf-parse");
   const parser = new PDFParse({ data });
   try {
     const shots = await parser.getScreenshot({ first: maxPages, scale: 1.5, imageDataUrl: false, imageBuffer: true });
