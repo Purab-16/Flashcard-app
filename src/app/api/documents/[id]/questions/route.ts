@@ -10,6 +10,9 @@ async function currentUser() {
   return { supabase, user };
 }
 
+// An AI call can take up to 20 seconds, and the fallback provider may run after it.
+export const maxDuration = 60;
+
 // Questions of this type and difficulty that the user has not answered yet.
 export async function GET(request: Request, { params: p }: { params: Promise<{ id: string }> }) {
   const { id } = await p;

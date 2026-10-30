@@ -20,6 +20,9 @@ async function context(subjectId: string) {
   return { supabase, user, documentIds: (docs ?? []).map((d) => d.id) };
 }
 
+// An AI call can take up to 20 seconds, and the fallback provider may run after it.
+export const maxDuration = 60;
+
 // Unanswered questions from every document in the subject.
 export async function GET(request: Request, { params: p }: { params: Promise<{ id: string }> }) {
   const { id } = await p;

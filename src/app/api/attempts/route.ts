@@ -15,6 +15,9 @@ const body = z.object({
   timeTakenMs: z.number().int().nonnegative().optional(),
 });
 
+// An AI call can take up to 20 seconds, and the fallback provider may run after it.
+export const maxDuration = 60;
+
 // Checks one answer, saves the attempt, and returns the result with the right answer.
 export async function POST(request: Request) {
   const supabase = await createClient();

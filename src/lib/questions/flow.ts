@@ -87,7 +87,7 @@ export async function generateNext(
   if (!remaining.length) return { status: 200, body: { questions: [], done: true } };
 
   // Skip chunks with no real content (title pages, code lists) without an AI call.
-  // If the AI finds nothing worth asking in a chunk, move on to the next one (max 2 AI calls per request).
+  // If the AI finds nothing worth asking in a chunk, the client asks again for the next one (1 AI call per request).
   const candidates = remaining.filter((c) => !skip.has(c.id) && !isLowValueChunk(c.content));
   const skipped: string[] = [];
   const usage = await usageToday(supabase, userId);
@@ -95,7 +95,7 @@ export async function generateNext(
   let generated: Awaited<ReturnType<typeof generateQuestions>> | null = null;
   let aiCalls = 0;
   for (const candidate of candidates) {
-    if (aiCalls >= 2) break;
+    if (aiCalls >= 1) break;
     if (usage.remaining - aiCalls <= 0) {
       return { status: 429, body: { error: LIMIT_MESSAGE, limitReached: true } };
     }

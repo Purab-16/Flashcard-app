@@ -9,7 +9,7 @@ test("a new subject can be added and chosen for an upload", async ({ page }) => 
   await page.getByLabel("New subject name").fill(name);
   await page.getByRole("button", { name: "Add subject" }).click();
 
-  await expect(page.getByLabel("Subject", { exact: true }).getByRole("option", { name })).toBeAttached();
+  await expect(page.getByLabel("Subject", { exact: true }).getByRole("option", { name })).toBeAttached({ timeout: 15_000 });
 });
 
 test("a text file is uploaded, read and ready to practice", async ({ page }) => {

@@ -82,3 +82,8 @@ Agents cannot edit guardrail files. Change them by hand.
 | Cursor | `.cursor/rules/guardrails.mdc` |
 | Copilot | `.github/copilot-instructions.md` |
 | Claude Code | `CLAUDE.md`, `.claude/settings.json` |
+
+
+## Live
+
+https://flashcard-app-purab5.vercel.app

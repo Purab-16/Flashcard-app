@@ -13,6 +13,9 @@ const body = z.object({
   timeTakenMs: z.number().int().nonnegative().optional(),
 });
 
+// An AI call can take up to 20 seconds, and the fallback provider may run after it.
+export const maxDuration = 60;
+
 // Grades one answer of a finished mock test. A blank answer is saved as skipped with no AI call.
 export async function POST(request: Request, { params: p }: { params: Promise<{ id: string }> }) {
   const { id } = await p;

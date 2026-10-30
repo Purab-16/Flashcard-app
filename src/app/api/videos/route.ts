@@ -7,6 +7,9 @@ import { getVideos } from "@/lib/youtube";
 
 const query = z.object({ questionId: z.uuid() });
 
+// An AI call can take up to 20 seconds, and the fallback provider may run after it.
+export const maxDuration = 60;
+
 // Videos for the topic of a question. The browser decides when to ask (auto on wrong, click on correct).
 export async function GET(request: Request) {
   const supabase = await createClient();

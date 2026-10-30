@@ -17,7 +17,14 @@ export function createGroqProvider(): AIProvider {
     prompt: string,
     system?: string,
   ): Promise<AIResult> => {
-    const r = await generateText({ model: groq(modelName), system, prompt, ...limits() });
+    const r = await generateText({
+      model: groq(modelName),
+      system,
+      prompt,
+      ...limits(),
+      // gpt-oss models think before they answer. Low effort keeps the answer fast and complete.
+      ...(modelName.includes("gpt-oss") ? { providerOptions: { groq: { reasoningEffort: "low" as const } } } : {}),
+    });
     return {
       text: r.text,
       usage: {

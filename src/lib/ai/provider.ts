@@ -19,10 +19,14 @@ export type VisionInput = {
   mediaType: string;
 };
 
-// Fail fast instead of waiting minutes when a provider is busy.
+// Fail fast instead of waiting minutes when a provider is busy. 20 seconds each, so the main provider and the
+// fallback together stay inside one serverless request.
+// maxOutputTokens leaves room for a complete JSON answer. Without it a reasoning model can spend its budget on
+// thinking and send back JSON that stops in the middle.
 export const limits = () => ({
   maxRetries: 1,
-  abortSignal: AbortSignal.timeout(30_000),
+  abortSignal: AbortSignal.timeout(20_000),
+  maxOutputTokens: 4096,
 });
 
 export interface AIProvider {
